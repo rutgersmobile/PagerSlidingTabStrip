@@ -1,4 +1,5 @@
 apply plugin: 'android-library'
+apply plugin: 'maven'
 
 dependencies {
     compile 'com.android.support:support-v4:+'
@@ -19,6 +20,16 @@ android {
             java.srcDirs = ['src']
             res.srcDirs = ['res']
         }
+    }
+}
+
+task installArchives(type: Upload) {
+    description "Installs the artifacts to the local Maven repository."
+    repositories.mavenInstaller {
+        configuration = configurations.default
+        pom.groupId = project.GROUP
+        pom.artifactId = project.POM_ARTIFACT_ID
+        pom.version = project.VERSION_NAME
     }
 }
 
